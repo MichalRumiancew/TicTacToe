@@ -1,7 +1,20 @@
+import sys
+
+
+
+
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
-    board = []
-    return board
+   # board = (f":{board_a} {board_b} {board_c}")
+    board_a = ['.','.','.']
+    board_b = ['.','.','.']
+    board_c = ['.','.','.']
+    #return board
+   # print (board)
+    theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
+            '4': ' ' , '5': ' ' , '6': ' ' ,
+            '1': ' ' , '2': ' ' , '3': ' ' }
+    print(theBoard)
 
 
 def get_move(board, player):
