@@ -1,20 +1,43 @@
-import sys
+import random
+import os
+import turtle
 
+os.system("cls || clear")
 
-
+board = ["-", "-", "-",
+         "-", "-", "-",
+         "-", "-", "-"]
+#print(board)
+#testowanie czy tablica drukije się poprawnie
 
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
-   # board = (f":{board_a} {board_b} {board_c}")
-    board_a = ['.','.','.']
-    board_b = ['.','.','.']
-    board_c = ['.','.','.']
-    #return board
-   # print (board)
-    theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
-            '4': ' ' , '5': ' ' , '6': ' ' ,
-            '1': ' ' , '2': ' ' , '3': ' ' }
-    print(theBoard)
+
+#wybór jak ma wyglądać tablica do gry? 
+# tablica 
+# - | - | -     1 | 2 | 3
+# - | - | -     4 | 5 | 6
+# - | - | -     7 | 8 | 9
+# lub 
+#    A | B | C
+#  1 - | - | -     
+#  2 - | - | -     
+#  3 - | - | -    
+
+    print("\n")
+    print("  A" + " | " + "B" + " | " + "C")
+    print("1 " + board[0] + " | " + board[1] + " | " + board[2])
+    print("2 " + board[3] + " | " + board[4] + " | " + board[5])
+    print("3 " + board[6] + " | " + board[7] + " | " + board[8])
+    print("\n")
+
+    print("\n")
+    print(board[0] + " | " + board[1] + " | " + board[2] + "     1 | 2 | 3")
+    print(board[3] + " | " + board[4] + " | " + board[5] + "     4 | 5 | 6")
+    print(board[6] + " | " + board[7] + " | " + board[8] + "     7 | 8 | 9")
+    print("\n")
+        
+print(init_board)
 
 
 def get_move(board, player):
