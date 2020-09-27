@@ -29,20 +29,38 @@ def init_board():
 #  2 - | - | -     
 #  3 - | - | -    
 
+#tworzenie tablicy board [ [] [] []]
+
     print("\n")
     print("  1" + "   " + "2" + "   " + "3")
-    print("A " + board[0] + " | " + board[1] + " | " + board[2])
+    print("A " + board[0][0] + " | " + board[0][1] + " | " + board[0][2])
     print(" ---+---+---")
-    print("B " + board[3] + " | " + board[4] + " | " + board[5])
+    print("B " + board[1][0] + " | " + board[1][1] + " | " + board[1][2])
     print(" ---+---+---")
-    print("C " + board[6] + " | " + board[7] + " | " + board[8])
+    print("C " + board[2][0] + " | " + board[2][1] + " | " + board[2][2])
     print("\n")
 
     print("\n")
-    print(board[0] + " | " + board[1] + " | " + board[2] + "     1 | 2 | 3")
-    print(board[3] + " | " + board[4] + " | " + board[5] + "     4 | 5 | 6")
-    print(board[6] + " | " + board[7] + " | " + board[8] + "     7 | 8 | 9")
+    print(board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "     1 | 2 | 3")
+    print(board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "     4 | 5 | 6")
+    print(board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "     7 | 8 | 9")
     print("\n")
+
+#tworzenie tablicy to boart[]
+    # print("\n")
+    # print("  1" + "   " + "2" + "   " + "3")
+    # print("A " + board[0] + " | " + board[1] + " | " + board[2])
+    # print(" ---+---+---")
+    # print("B " + board[3] + " | " + board[4] + " | " + board[5])
+    # print(" ---+---+---")
+    # print("C " + board[6] + " | " + board[7] + " | " + board[8])
+    # print("\n")
+
+    # print("\n")
+    # print(board[0] + " | " + board[1] + " | " + board[2] + "     1 | 2 | 3")
+    # print(board[3] + " | " + board[4] + " | " + board[5] + "     4 | 5 | 6")
+    # print(board[6] + " | " + board[7] + " | " + board[8] + "     7 | 8 | 9")
+    # print("\n")
         
 print(init_board)
 
