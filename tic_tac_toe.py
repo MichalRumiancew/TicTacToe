@@ -4,14 +4,19 @@ import turtle
 
 os.system("cls || clear")
 
-board = ["-", "-", "-",
-         "-", "-", "-",
-         "-", "-", "-"]
-#print(board)
+
 #testowanie czy tablica drukije się poprawnie
 
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
+
+    # board = [".", ".", ".",
+    #      ".", ".", ".",
+    #      ".", ".", "."]
+
+    board = [['.','.','.'],['.','.','.'],['.','.','.']]
+
+# print(board)
 
 #wybór jak ma wyglądać tablica do gry? 
 # tablica 
@@ -25,10 +30,12 @@ def init_board():
 #  3 - | - | -    
 
     print("\n")
-    print("  A" + " | " + "B" + " | " + "C")
-    print("1 " + board[0] + " | " + board[1] + " | " + board[2])
-    print("2 " + board[3] + " | " + board[4] + " | " + board[5])
-    print("3 " + board[6] + " | " + board[7] + " | " + board[8])
+    print("  1" + "   " + "2" + "   " + "3")
+    print("A " + board[0] + " | " + board[1] + " | " + board[2])
+    print(" ---+---+---")
+    print("B " + board[3] + " | " + board[4] + " | " + board[5])
+    print(" ---+---+---")
+    print("C " + board[6] + " | " + board[7] + " | " + board[8])
     print("\n")
 
     print("\n")
@@ -69,7 +76,7 @@ def is_full(board):
 
 def print_board(board):
     """Prints a 3-by-3 board on the screen with borders."""
-    pass
+    
 
 
 def print_result(winner):
