@@ -16,7 +16,7 @@ EMPTY = "."
 X = "X"
 O = "O"
 NUM_SQUARES = 9
-
+TIE = "TIE"
 
 
 def menu():
@@ -54,7 +54,7 @@ def level_input():
         return
 
 
-def init_board():
+def init_board(board):
     """Returns an empty 3-by-3 board (with .)."""
     print("\n\t", board[0], " | ", board[1], " | ", board[2],       "     1 |  2  | 3")
     print("\t", "---+-----+----   ----+-----+---")
@@ -64,7 +64,7 @@ def init_board():
     return board
 
 
-def get_move(player):
+def get_move(board, player):
 
     print(player + "'s turn.")
     position = input("Choose a position from 1-9: ")
@@ -73,18 +73,17 @@ def get_move(player):
 
          while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
              position = input("Choose a position from 1-9: ")
-         position = int(position) - 1 # dzięki temu pozycje 1-9 nie 0-8
+         position = int(position) - 1
 
          if board[position] == ".":
              valid = True
          else:
              print("You can't go there. Go again.")
 
-    os.system("cls || clear")
-    board[position] = player
-    init_board()
+    return position
 
-def get_move_2(player2):
+
+def get_move_2(board, player2):
 
     print(player2 + "'s turn.")
     position = input("Choose a position from 1-9: ")
@@ -100,12 +99,10 @@ def get_move_2(player2):
          else:
              print("You can't go there. Go again.")
 
-    os.system("cls || clear")
-    board[position] = player2
-    init_board()
+    return position
 
 
-def get_move_computer(computer):
+def get_move_computer(board, computer):
 
      print(computer + "'s turn.")
      position = random.randint(0,8)
@@ -114,35 +111,62 @@ def get_move_computer(computer):
 
      os.system("cls || clear")
      board[position] = computer
-     init_board()
+     init_board(board)
+     return position
 
 
-def get_move_computer_hard(board, computer, player):
+def get_move_computer_hard(board, computer_hard, player):
 
     board = board[:]
     BEST_MOVES = (4, 0, 2, 6, 8, 1, 3, 5, 7) 
-    print(computer + "'s turn.")
-    print("Computer_hard choose", end=" ")
+    BEST_MOVES2 = (4, 5, 7, 6, 8, 2, 3, 1, 0) 
+    BEST_MOVES3 = (4, 6, 1, 0, 8, 2, 3, 5, 7) 
+    print(computer_hard + "'s turn.")
+    
     for position in legal_moves(board):
-        board[position] = computer
-        if check_if_game_over(board) == computer:
-            print(position)
+        board[position] = computer_hard
+        if check_if_game_over(board) == computer_hard:
+            print("Computer_hard choose", + position+1)  
             return position
         board[position] = EMPTY
 
     for position in legal_moves(board):
         board[position] = player
         if check_if_game_over(board) == player:
-            print(position)
+            print("Computer_hard choose", + position+1)  
             return position
         board[position] = EMPTY
+    
+    if board[0] != EMPTY and board[8] != EMPTY:
+        for position in BEST_MOVES2:
+             if position in legal_moves(board):
+                print("Computer_hard choose", + position+1)  
+                return position   
 
-    for position in BEST_MOVES:
-         if position in legal_moves(board):
-            print(position)
-            return position
+    elif board[5] != EMPTY and board[7] != EMPTY:
+        for position in BEST_MOVES2:
+             if position in legal_moves(board):
+                print("Computer_hard choose", + position+1)  
+                return position   
+    
+    elif board[2] != EMPTY and board[6] != EMPTY:
+        for position in BEST_MOVES3:
+             if position in legal_moves(board):
+                print("Computer_hard choose", + position+1)  
+                return position
+
+    elif board[0] != EMPTY and board[7] != EMPTY:
+        for position in BEST_MOVES3:
+             if position in legal_moves(board):
+                print("Computer_hard choose", + position+1)  
+                return position   
+
+    else:
+        for position in BEST_MOVES:
+             if position in legal_moves(board):
+                print("Computer_hard choose", + position+1)  
+                return position   
   
-
 
 def legal_moves(board):
     
@@ -152,6 +176,14 @@ def legal_moves(board):
             moves.append(square)
     return moves
 
+
+def new_board():
+    board = []
+    for square in range(NUM_SQUARES):
+        board.append(EMPTY)
+    return board
+
+
 def flip_player(turn):
   
     if turn == X:
@@ -159,9 +191,9 @@ def flip_player(turn):
     else:
         return X
 
+
 def check_if_game_over(board):
 
-    global game_still_going   
     WAYS_TO_WIN = ((0, 1, 2),
                    (3, 4, 5),
                    (6, 7, 8),
@@ -174,14 +206,12 @@ def check_if_game_over(board):
     for row in WAYS_TO_WIN:
         if board[row[0]] == board[row[1]] == board[row[2]] != EMPTY:
             winner = board[row[0]]
-            game_still_going = False
-            winner == "X" or winner == "O"
-            print(str(winner) + " won.")
+            print("Winner is : ", winner)
+            return winner
 
-    if EMPTY not in board and winner != "X" and winner != "O" :
-        game_still_going = False
+    if EMPTY not in board:
         print("Tie")
-        return 
+        return TIE
 
     return None
 
@@ -201,72 +231,105 @@ def first_move():
 
 
 def tictactoe_game():
-    
-    init_board()
+    os.system("cls || clear")
+    init_board(board)
     player, player2 = first_move()
     turn = X
-    while game_still_going:
+    while not check_if_game_over(board):
 
         if turn == player:
             
-            get_move(player)
-            check_if_game_over(board)
-               
+            position = get_move(board, player)
+            board[position] = player
+                 
         elif turn == player2:
             
-            get_move_2(player2)
-            check_if_game_over(board)
-                
-        turn = flip_player(turn) 
+            position = get_move_2(board, player2)
+            board[position] = player2
 
-    
+        os.system("cls || clear")
+        init_board(board)           
+        turn = flip_player(turn) 
 
 
 def tictactoe_game_comp():
-    
-    init_board()
+    os.system("cls || clear")
+    init_board(board)
     computer, player = first_move()
     turn = X
 
-    while game_still_going:
+    while not check_if_game_over(board):
 
         if turn == player:
             
-            get_move(player)
-            check_if_game_over(board)
+            position = get_move(board, player)
+            board[position] = player
                       
         elif turn == computer:
             
-            get_move_computer(computer)
-            check_if_game_over(board)
-                
-        turn = flip_player(turn) 
+            position = get_move_computer(board, computer)
+            board[position] = computer
 
-    
+        os.system("cls || clear")
+        init_board(board)           
+        turn = flip_player(turn) 
 
 
 def tictactoe_game_comp_hard():
-    
-    init_board()
-    computer, player = first_move()
+
+    os.system("cls || clear")
+    init_board(board)
+    computer_hard, player = first_move()
     turn = X
 
-    while game_still_going:
+    while not check_if_game_over(board) and game_still_going:
 
         if turn == player:
             
-            get_move(player)
-            check_if_game_over(board)
+            position = get_move(board, player)
+            board[position] = player
                  
-        elif turn == computer:
+        elif turn == computer_hard:
             
-            get_move_computer_hard(board, computer, player)
-            check_if_game_over(board)
-                
+            position = get_move_computer_hard(board, computer_hard, player)
+            board[position] = computer_hard
+
+        os.system("cls || clear")
+        init_board(board)           
         turn = flip_player(turn) 
 
 
+def tictactoe_game_comp_hard_vs_comp():
+
+    os.system("cls || clear")
+    init_board(board)
+    computer, computer_hard = first_move()
+    turn = X
     
+    while not check_if_game_over(board) and game_still_going:
+
+        if turn == computer:
+            
+            position = get_move_computer(board, computer)
+            board[position] = computer
+                 
+        elif turn == computer_hard:
+            
+            position = get_move_computer_hard(board, computer_hard, computer)
+            board[position] = computer_hard
+
+        os.system("cls || clear")
+        init_board(board)           
+        turn = flip_player(turn) 
+
+
+def end_game():
+    print("\n\n#########    END GAME    #########")
+    print("\n\n")
+    input("\n\nPress Enter")
+    return None
+
+
 def main_menu():
    
     choose_menu = menu()
@@ -276,8 +339,7 @@ def main_menu():
     if choose_menu == 1:
 
         tictactoe_game()
-        print("\n\n#########    END GAME    #########")
-        print("\n\n")
+        end_game()
            
     elif choose_menu == 2:
 
@@ -286,29 +348,22 @@ def main_menu():
             comp_lv = level_input()
         if comp_lv == 1:
             tictactoe_game_comp()
-            print("\n\n#########    END GAME    #########")
-            print("\n\n")
+            end_game()
         elif comp_lv == 2:
             tictactoe_game_comp_hard()
-            print("\n\n#########    END GAME    #########")
-            print("\n\n")
+            end_game()
         else:
-            print("\n\n#########    END GAME    #########")
-            print("\n\n")
+            end_game()
         
 
     elif choose_menu == 3:
-        print("\n\n#########    END GAME    #########")
-        print("\n\n")
+        tictactoe_game_comp_hard_vs_comp()
+        end_game()
         
 
     elif choose_menu == 4:
-        print("\n\n#########    END GAME    #########")
-        print("\n\n")
+        end_game()
         
-
-
-
-
 if __name__ == '__main__':
     main_menu()
+    
