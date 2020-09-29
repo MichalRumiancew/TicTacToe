@@ -1,6 +1,5 @@
 import random
 import os
-import turtle
 
 os.system("cls || clear")
 
@@ -8,15 +7,18 @@ os.system("cls || clear")
 #testowanie czy tablica drukije się poprawnie
 
 def init_board():
+    board = [['.','.','.'],['.','.','.'],['.','.','.']]
+    print(board)
     """Returns an empty 3-by-3 board (with .)."""
 
     # board = [".", ".", ".",
     #      ".", ".", ".",
     #      ".", ".", "."]
+print(init_board)
 
-    board = [['.','.','.'],['.','.','.'],['.','.','.']]
 
-# print(board)
+
+
 
 #wybór jak ma wyglądać tablica do gry? 
 # tablica 
@@ -31,20 +33,7 @@ def init_board():
 
 #tworzenie tablicy board [ [] [] []]
 
-    print("\n")
-    print("  1" + "   " + "2" + "   " + "3")
-    print("A " + board[0][0] + " | " + board[0][1] + " | " + board[0][2])
-    print(" ---+---+---")
-    print("B " + board[1][0] + " | " + board[1][1] + " | " + board[1][2])
-    print(" ---+---+---")
-    print("C " + board[2][0] + " | " + board[2][1] + " | " + board[2][2])
-    print("\n")
 
-    print("\n")
-    print(board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "     1 | 2 | 3")
-    print(board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "     4 | 5 | 6")
-    print(board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "     7 | 8 | 9")
-    print("\n")
 
 #tworzenie tablicy to boart[]
     # print("\n")
@@ -62,7 +51,6 @@ def init_board():
     # print(board[6] + " | " + board[7] + " | " + board[8] + "     7 | 8 | 9")
     # print("\n")
         
-print(init_board)
 
 
 def get_move(board, player):
@@ -94,8 +82,21 @@ def is_full(board):
 
 def print_board(board):
     """Prints a 3-by-3 board on the screen with borders."""
-    
+    board = [['.','.','.'],['.','.','.'],['.','.','.']]
+    print("\n")
+    print("  1" + "   " + "2" + "   " + "3")
+    print("A " + board[0][0] + " | " + board[0][1] + " | " + board[0][2])
+    print(" ---+---+---")
+    print("B " + board[1][0] + " | " + board[1][1] + " | " + board[1][2])
+    print(" ---+---+---")
+    print("C " + board[2][0] + " | " + board[2][1] + " | " + board[2][2])
+    print("\n")
 
+    # print("\n")
+    # print(board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "     1 | 2 | 3")
+    # print(board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "     4 | 5 | 6")
+    # print(board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "     7 | 8 | 9")
+    # print("\n")
 
 def print_result(winner):
     """Congratulates winner or proclaims tie (if winner equals zero)."""
