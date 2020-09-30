@@ -97,6 +97,7 @@ def winner(board):
                    (2, 5, 8),
                    (0, 4, 8),
                    (2, 4, 6))
+                   
     
     for row in WAYS_TO_WIN:
         if board[row[0]] == board[row[1]] == board[row[2]] != EMPTY:
